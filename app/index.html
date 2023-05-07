@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+	<html lang="en" ng-app="weatherApp"> 
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>AngularJS Weather Forecast</title>
+		<link href="bower_components/angular-xeditable/css/xeditable.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link href="app.css" rel="stylesheet">
+		<script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+	</head>
+	<body>
+
+		
+		<main class="col-md-5 col-md-offset-3">
+			<h1>Weather Forecast</h1>
+			<p>Enter a city name to find out the weather forecast</p>
+			<div ng-controller="weatherController">
+				<form name ="weatherForm" class="form-inline">
+					<input type="text" class="form-control" value="" ng-model="city" ng-minlength="1" placeholder="City: e.g. Delhi" required/>
+					<button type="submit" class="btn btn-primary" ng-click='getWeather()'>Search</button>			
+				</form>
+				<div ng-show="requestError"  class="alert alert-danger" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					There was an error in your request, please try again in few minutes.
+				</div>
+				<div ng-show="cityNotFound"  class="alert alert-danger" role="alert">
+					<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+					<span class="sr-only">Error:</span>
+					Sorry the city that you've searched for could not be found.
+				</div>
+				<div class="result" ng-show="weatherForecast.name">
+					<h2>{{weatherForecast.name}}</h2>
+					<h3><img src="http://openweathermap.org/img/w/{{weatherForecast.weather[0].icon}}.png">{{weatherForecast.main.temp}} &#8451;</h3>
+					<p class="description">{{weatherForecast.weather[0].description}}</p>
+					<p>Min: {{weatherForecast.main.temp_min}} &#8451;</p>
+					<p>Max: {{weatherForecast.main.temp_max}} &#8451;</p>
+					<p>Humidity: {{weatherForecast.main.humidity}}%</p>
+				</div>
+			</div>
+		</main>
+
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="app.js"></script>
+		<script src="components/version/version.js"></script>
+		<script src="components/version/version-directive.js"></script>
+		<script src="components/version/interpolate-filter.js"></script>
+	</body>
+</html>
